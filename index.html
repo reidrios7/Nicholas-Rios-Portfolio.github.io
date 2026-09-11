@@ -19,7 +19,9 @@
 </style>
 <style>
 .hero-headshot{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 32%;margin:0 0 24px;border:1px solid var(--line);background:var(--white)}
-@media(max-width:760px){.hero-aside{grid-template-columns:110px 1fr;column-gap:20px;align-items:start}.hero-headshot{grid-column:1;grid-row:1/6;width:110px;margin:0}.hero-aside .aside-heading{grid-column:2;grid-row:1}.hero-aside .current-role{grid-column:2;grid-row:2}.hero-aside>.muted:first-of-type{grid-column:2;grid-row:3}.hero-aside .school{grid-column:2;grid-row:4}.hero-aside #hero-graduation{grid-column:2;grid-row:5}}
+@media(min-width:1001px){.hero{grid-template-columns:minmax(0,1fr) 300px;gap:55px}}
+@media(min-width:761px) and (max-width:1000px){.hero{grid-template-columns:minmax(0,1fr) 250px;gap:36px}}
+@media(max-width:760px){.hero-aside{grid-template-columns:125px 1fr;column-gap:20px;align-items:start}.hero-headshot{grid-column:1;grid-row:1/6;width:125px;margin:0}.hero-aside .aside-heading{grid-column:2;grid-row:1}.hero-aside .current-role{grid-column:2;grid-row:2}.hero-aside>.muted:first-of-type{grid-column:2;grid-row:3}.hero-aside .school{grid-column:2;grid-row:4}.hero-aside #hero-graduation{grid-column:2;grid-row:5}}
 </style>
 </head>
 <body>
@@ -129,6 +131,28 @@ window.PORTFOLIO = {
       ],
       "images": [],
       "documents": [{ "label": "Ball-balancing project memo", "path": "assets/documents/ball-balancing-project-memo.pdf", "type": "PDF · Project memo" }]
+    },
+    {
+      "id": "hoist-gearbox",
+      "title": "Overhead crane hoist gearbox",
+      "subtitle": "Three-stage spur-gear reducer",
+      "category": "Machine design · Power transmission",
+      "date": "Spring 2026",
+      "role": "Mechanical Design Team",
+      "featured": false,
+      "visible": true,
+      "summary": "Designed a prototype three-stage spur-gear reducer for a 7.5-ton overhead crane, translating a 15 hp, 1,800 rpm motor input into the required drum speed and torque.",
+      "highlight": "98.4:1 reduction · 52,520 lbf-in output",
+      "metrics": [],
+      "tools": ["MATLAB", "Excel", "AGMA gear design", "Fatigue analysis", "Mechanical drawings"],
+      "sections": [
+        { "heading": "The challenge", "body": "Design a hoist reducer capable of lifting a 7.5-ton load at up to 30 ft/min while meeting specified reliability, service-life, gear-strength, shaft, and key requirements." },
+        { "heading": "Design approach", "body": "The team selected a three-stage spur-gear train with ratios of 6:1, 4:1, and 4.1:1. MATLAB and Excel supported iterative tooth-count, diametral-pitch, face-width, transmitted-load, and center-distance calculations." },
+        { "heading": "Component verification", "bullets": ["Applied AGMA-based bending and surface-fatigue calculations to size each gear stage.", "Calculated bearing reactions and combined bending and torsional loading for the intermediate shaft, selecting a 2.25 in diameter against a 1.76 in requirement.", "Sized a 1.81 in AISI 1020 output-shaft key as the intended weak link under overload."] },
+        { "heading": "Outcome", "body": "The final 98.4:1 calculated reduction produced 52,520 lbf-in of designed output torque, exceeding the 46,875 lbf-in requirement under the report's stated assumptions." }
+      ],
+      "images": [{ "src": "assets/images/hoist-gearbox-exploded.jpg", "alt": "Exploded view of the three-stage overhead crane hoist gearbox", "caption": "Exploded gearbox assembly showing housing, shafts, pinions, and gears" }],
+      "documents": [{ "label": "Hoist gearbox design report", "path": "assets/documents/hoist-gearbox-design-report.pdf", "type": "PDF · Team report" }]
     }
   ],
   "experience": [
