@@ -56,6 +56,7 @@ window.PORTFOLIO = {
   "profile": {
     "name": "Nicholas Rios",
     "title": "Mechanical Engineer",
+    "heroRole": "Mechanical Engineer",
     "initials": "NR",
     "label": "Mechanical engineering portfolio",
     "headline": "Design. Analyze.\nBuild. Refine.",
@@ -128,12 +129,14 @@ window.PORTFOLIO = {
       "summary": "Designed and refined a tilting-plate mechanism, working with controls and electronics teammates to integrate the actuation platform with a Raspberry Pi Pico.",
       "highlight": "Mechanical design + controls integration",
       "metrics": [],
+      "cardImage": { "src": "assets/images/ball-balancing-system.jpg", "alt": "Physical ball-balancing platform with its ball, tilting plate, linkage, and servos" },
       "tools": ["Mechanism design", "Raspberry Pi Pico", "Sensors & actuators"],
       "sections": [
         { "heading": "The challenge", "body": "Create a mechanical platform that could dynamically tilt a plate to control the position of a ball." },
         { "heading": "My contribution", "bullets": ["Designed the mechanical structure and actuation platform.", "Collaborated with controls and electronics teammates to integrate sensors, actuators, and Raspberry Pi Pico control logic.", "Iteratively refined mechanical design parameters to improve responsiveness, stability, and disturbance rejection."] }
       ],
       "images": [],
+      "videos": [{ "src": "assets/videos/ball-balancing-demonstration.mp4", "caption": "Ball-balancing system demonstration" }],
       "documents": [{ "label": "Ball-balancing project memo", "path": "assets/documents/ball-balancing-project-memo.pdf", "type": "PDF · Project memo" }]
     },
     {
@@ -305,7 +308,7 @@ window.__ASSETS = {};
     fill('hero-graduation', p.graduation); fill('location', p.location);
     const current = data.experience?.[0];
     document.querySelector('.hero-aside').hidden = !current;
-    document.querySelector('.current-role').textContent = current?.role || '';
+    document.querySelector('.current-role').textContent = p.heroRole || current?.role || '';
     document.querySelector('.hero-aside > .muted').textContent = current?.organization || '';
     const resume = document.getElementById('resume-link');
     resume.hidden = !safeURL(p.resume); if (!resume.hidden) resume.href = safeURL(p.resume);
