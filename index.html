@@ -22,6 +22,9 @@
 @media(min-width:1001px){.hero{grid-template-columns:minmax(0,1fr) 300px;gap:55px}}
 @media(min-width:761px) and (max-width:1000px){.hero{grid-template-columns:minmax(0,1fr) 250px;gap:36px}}
 @media(max-width:760px){.hero-aside{grid-template-columns:125px 1fr;column-gap:20px;align-items:start}.hero-headshot{grid-column:1;grid-row:1/6;width:125px;margin:0}.hero-aside .aside-heading{grid-column:2;grid-row:1}.hero-aside .current-role{grid-column:2;grid-row:2}.hero-aside>.muted:first-of-type{grid-column:2;grid-row:3}.hero-aside .school{grid-column:2;grid-row:4}.hero-aside #hero-graduation{grid-column:2;grid-row:5}}
+.project-card-image{display:block;width:100%;max-height:240px;object-fit:contain;background:var(--white)}
+.detail-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:4px 0 30px}.detail-metrics .metric{padding:17px 18px;border:1px solid var(--line);background:var(--paper)}.detail-metrics .metric strong{font-size:32px;color:var(--ink)}.detail-metrics .metric span{color:var(--muted);margin:4px 0 0;max-width:150px}
+@media(max-width:560px){.detail-metrics{grid-template-columns:1fr}.detail-metrics .metric{display:grid;grid-template-columns:90px 1fr;align-items:center}.detail-metrics .metric span{margin:0;max-width:none}}
 </style>
 </head>
 <body>
@@ -80,6 +83,7 @@ window.PORTFOLIO = {
       "summary": "A competition-winning UAV combining powered ascent with three-blade autorotation recovery and a fully 3D-printed airframe.",
       "highlight": "2026 3DPAC Rotary-Wing Competition winner",
       "metrics": [ { "value": "+240%", "label": "Average hang time vs. baseline" }, { "value": "8 s", "label": "Powered-flight limit" }, { "value": "60 ft", "label": "Altitude ceiling" } ],
+      "cardImage": { "src": "assets/images/batwing-drone.png", "alt": "CAD rendering of the Batwing three-blade autorotating UAV" },
       "tools": ["Onshape", "AeroSandbox", "CasADi / IPOPT", "ESP32-S3", "ASA Aero / ASA / Onyx"],
       "sections": [
         { "heading": "The challenge", "body": "Develop a fully 3D-printed airframe that could climb under an eight-second powered-flight limit and recover through autorotation within a 60-foot altitude ceiling." },
@@ -214,7 +218,13 @@ window.__ASSETS = {};
     copy.append(meta);
     const visual = el('div', 'project-visual');
     const images = (project.images || []).filter(i => safeURL(i.src));
-    if (project.featured && project.metrics?.length) {
+    const cardImage = project.cardImage && safeURL(project.cardImage.src) ? project.cardImage : null;
+    if (cardImage) {
+      const image = el('img', 'project-card-image');
+      image.src = safeURL(cardImage.src); image.alt = cardImage.alt || project.title; image.loading = 'eager';
+      image.addEventListener('error', () => { image.hidden = true; }, { once: true });
+      visual.append(image);
+    } else if (project.featured && project.metrics?.length) {
       visual.append(makeMetric(project.metrics[0]));
       if (project.metrics.length > 1) {
         const small = el('div', 'small-metrics');
@@ -248,7 +258,14 @@ window.__ASSETS = {};
       }
       sections.append(block);
     });
-    content.append(tags, sections);
+    content.append(tags);
+    if (project.metrics?.length) {
+      const metrics = el('div', 'detail-metrics');
+      metrics.setAttribute('aria-label', `${project.title} key results and constraints`);
+      project.metrics.forEach(metric => metrics.append(makeMetric(metric)));
+      content.append(metrics);
+    }
+    content.append(sections);
     images.forEach(image => {
       const figure = el('figure'); const img = el('img');
       img.src = safeURL(image.src); img.alt = image.alt || ''; img.loading = 'lazy';
